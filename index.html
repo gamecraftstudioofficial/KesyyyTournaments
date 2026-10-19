@@ -1,29 +1,959 @@
-
-<div class="prizes-grid">
-  <article class="prize-card blue reveal">
-    <div class="prize-icon" aria-hidden="true">◇</div>
-    <span class="prize-label">Blue reward</span>
-    <h3>Skin casek</h3>
-    <p style="color: #b9aeb5; margin-top: 12px; font-size: 14px;">
-      Nyerteseknek fejenként egy:
-    </p>
-  </article>
-
-  <article class="prize-card yellow reveal">
-    <div class="prize-icon" aria-hidden="true">✦</div>
-    <span class="prize-label">Gold reward</span>
-    <h3>Key Bundle</h3>
-    <p style="color: #b9aeb5; margin-top: 12px; font-size: 14px;">
-      Nyerteseknek fejenként egy:
-    </p>
-  </article>
-
-  <article class="prize-card red reveal">
-    <div class="prize-icon" aria-hidden="true">⬡</div>
-    <span class="prize-label">Red reward</span>
-    <h3>Bundlelek</h3>
-    <p style="color: #b9aeb5; margin-top: 12px; font-size: 14px;">
-      Nyerteseknek fejenként egy:
-    </p>
-  </article>
-</div>
+\<!DOCTYPE html>
+\<html lang="hu">
+\<head>
+&#x20; \<meta charset="UTF-8">
+&#x20; \<meta name="viewport" content="width=device-width, initial-scale=1.0">
+&#x20; \<meta name="theme-color" content="#0b080b">
+&#x20; \<meta name="description" content="Kesyyy Tournamentjei – versenyek, nyeremények és Discord-közösség.">
+&#x20; \<title>Kesyyy Tournamentjei\</title>
+&#x20; \<style>
+&#x20;   :root {
+&#x20;     \--bg: #0b080b;
+&#x20;     \--panel: rgba(22, 15, 20, .78);
+&#x20;     \--text: #f7f3f5;
+&#x20;     \--muted: #b9aeb5;
+&#x20;     \--red: #ff334f;
+&#x20;     \--red-dark: #9e1027;
+&#x20;     \--line: rgba(255, 255, 255, .10);
+&#x20;   }
+&#x20;   \* { box-sizing: border-box; }
+&#x20;   html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+&#x20;   body {
+&#x20;     margin: 0;
+&#x20;     min-height: 100vh;
+&#x20;     overflow-x: hidden;
+&#x20;     color: var(--text);
+&#x20;     background:
+&#x20;       radial-gradient(ellipse at 50% -10%, rgba(143, 12, 39, .32), transparent 47%),
+&#x20;       radial-gradient(ellipse at 100% 45%, rgba(95, 9, 28, .15), transparent 40%),
+&#x20;       var(--bg);
+&#x20;     font-family: Inter, ui-sans-serif, system-ui, -apple-system,
+&#x20;       BlinkMacSystemFont, "Segoe UI", sans-serif;
+&#x20;   }
+&#x20;   body::before {
+&#x20;     content: "";
+&#x20;     position: fixed;
+&#x20;     inset: 0;
+&#x20;     z-index: -2;
+&#x20;     pointer-events: none;
+&#x20;     opacity: .36;
+&#x20;     background: repeating-linear-gradient(
+&#x20;       118deg,
+&#x20;       transparent 0 115px,
+&#x20;       rgba(255, 49, 79, .07) 116px 118px,
+&#x20;       transparent 119px 235px
+&#x20;     );
+&#x20;     animation: trackMove 24s linear infinite;
+&#x20;   }
+&#x20;   body::after {
+&#x20;     content: "";
+&#x20;     position: fixed;
+&#x20;     inset: 0;
+&#x20;     z-index: -1;
+&#x20;     pointer-events: none;
+&#x20;     background: linear-gradient(180deg, transparent 65%, rgba(0, 0, 0, .38));
+&#x20;   }
+&#x20;   a { color: inherit; text-decoration: none; }
+&#x20;   button { font: inherit; }
+&#x20;   .topbar {
+&#x20;     position: sticky;
+&#x20;     top: 0;
+&#x20;     z-index: 20;
+&#x20;     width: 100%;
+&#x20;     border-bottom: 1px solid rgba(255,255,255,.08);
+&#x20;     background: rgba(11, 8, 11, .78);
+&#x20;     backdrop-filter: blur(18px);
+&#x20;     -webkit-backdrop-filter: blur(18px);
+&#x20;   }
+&#x20;   .nav {
+&#x20;     width: min(1120px, calc(100% - 40px));
+&#x20;     min-height: 72px;
+&#x20;     margin: 0 auto;
+&#x20;     display: flex;
+&#x20;     align-items: center;
+&#x20;     justify-content: space-between;
+&#x20;     gap: 24px;
+&#x20;   }
+&#x20;   .brand {
+&#x20;     display: inline-flex;
+&#x20;     align-items: center;
+&#x20;     gap: 11px;
+&#x20;     font-size: 14px;
+&#x20;     font-weight: 900;
+&#x20;     letter-spacing: .09em;
+&#x20;     text-transform: uppercase;
+&#x20;     white-space: nowrap;
+&#x20;   }
+&#x20;   .brand-mark {
+&#x20;     display: grid;
+&#x20;     place-items: center;
+&#x20;     width: 34px;
+&#x20;     height: 34px;
+&#x20;     border-radius: 10px;
+&#x20;     color: white;
+&#x20;     background: linear-gradient(135deg, #ff5368, #b70e2c);
+&#x20;     box-shadow: 0 0 26px rgba(255, 51, 79, .25);
+&#x20;     transform: skew(-5deg);
+&#x20;   }
+&#x20;   .nav-links { display: flex; align-items: center; gap: 28px; }
+&#x20;   .nav-links a {
+&#x20;     color: var(--muted);
+&#x20;     font-size: 13px;
+&#x20;     font-weight: 650;
+&#x20;     transition: color .25s ease;
+&#x20;   }
+&#x20;   .nav-links a:hover { color: white; }
+&#x20;   .nav-cta {
+&#x20;     padding: 10px 15px;
+&#x20;     border: 1px solid rgba(255, 74, 99, .42);
+&#x20;     border-radius: 10px;
+&#x20;     color: #fff !important;
+&#x20;     background: rgba(255, 51, 79, .10);
+&#x20;   }
+&#x20;   .hero {
+&#x20;     position: relative;
+&#x20;     min-height: min(760px, calc(100svh - 72px));
+&#x20;     display: grid;
+&#x20;     place-items: center;
+&#x20;     padding: 100px 24px 120px;
+&#x20;     isolation: isolate;
+&#x20;   }
+&#x20;   .hero::before {
+&#x20;     content: "";
+&#x20;     position: absolute;
+&#x20;     z-index: -1;
+&#x20;     width: min(900px, 90vw);
+&#x20;     height: 390px;
+&#x20;     top: 16%;
+&#x20;     left: 50%;
+&#x20;     transform: translateX(-50%);
+&#x20;     background: radial-gradient(ellipse, rgba(210, 18, 54, .20), transparent 68%);
+&#x20;     filter: blur(22px);
+&#x20;     animation: pulse 5s ease-in-out infinite;
+&#x20;   }
+&#x20;   .hero-inner {
+&#x20;     width: min(900px, 100%);
+&#x20;     text-align: center;
+&#x20;     animation: heroEnter .9s cubic-bezier(.2,.7,.2,1) both;
+&#x20;   }
+&#x20;   .eyebrow {
+&#x20;     display: inline-flex;
+&#x20;     align-items: center;
+&#x20;     gap: 9px;
+&#x20;     padding: 8px 13px;
+&#x20;     border: 1px solid rgba(255, 89, 110, .25);
+&#x20;     border-radius: 999px;
+&#x20;     color: #ff9aaa;
+&#x20;     background: rgba(255, 51, 79, .07);
+&#x20;     font-size: 11px;
+&#x20;     font-weight: 800;
+&#x20;     letter-spacing: .18em;
+&#x20;     text-transform: uppercase;
+&#x20;   }
+&#x20;   .eyebrow-dot {
+&#x20;     width: 6px;
+&#x20;     height: 6px;
+&#x20;     border-radius: 50%;
+&#x20;     background: var(--red);
+&#x20;     box-shadow: 0 0 12px var(--red);
+&#x20;   }
+&#x20;   h1 {
+&#x20;     margin: 25px 0 22px;
+&#x20;     font-size: clamp(42px, 8vw, 88px);
+&#x20;     line-height: .99;
+&#x20;     letter-spacing: -.065em;
+&#x20;     font-weight: 950;
+&#x20;   }
+&#x20;   h1 span {
+&#x20;     display: block;
+&#x20;     color: transparent;
+&#x20;     background: linear-gradient(100deg, #fff 3%, #ffb3bf 40%, #ff334f 78%, #a90d2b 100%);
+&#x20;     -webkit-background-clip: text;
+&#x20;     background-clip: text;
+&#x20;     filter: drop-shadow(0 9px 28px rgba(255, 51, 79, .14));
+&#x20;   }
+&#x20;   .hero p {
+&#x20;     max-width: 570px;
+&#x20;     margin: 0 auto;
+&#x20;     color: #bdb1b8;
+&#x20;     font-size: clamp(15px, 2vw, 17px);
+&#x20;     line-height: 1.8;
+&#x20;   }
+&#x20;   .hero-actions {
+&#x20;     display: flex;
+&#x20;     flex-wrap: wrap;
+&#x20;     justify-content: center;
+&#x20;     gap: 13px;
+&#x20;     margin-top: 34px;
+&#x20;   }
+&#x20;   .button {
+&#x20;     display: inline-flex;
+&#x20;     justify-content: center;
+&#x20;     align-items: center;
+&#x20;     gap: 11px;
+&#x20;     min-height: 49px;
+&#x20;     padding: 0 20px;
+&#x20;     border: 1px solid transparent;
+&#x20;     border-radius: 12px;
+&#x20;     cursor: pointer;
+&#x20;     font-size: 13px;
+&#x20;     font-weight: 850;
+&#x20;     letter-spacing: .01em;
+&#x20;     transition: transform .25s ease, box-shadow .25s ease,
+&#x20;       border-color .25s ease, background .25s ease;
+&#x20;   }
+&#x20;   .button:hover { transform: translateY(-3px); }
+&#x20;   .button-primary {
+&#x20;     color: white;
+&#x20;     background: linear-gradient(110deg, #ff435b, #c41434);
+&#x20;     box-shadow: 0 9px 28px rgba(207, 20, 52, .22);
+&#x20;   }
+&#x20;   .button-primary:hover {
+&#x20;     box-shadow: 0 13px 34px rgba(207, 20, 52, .34);
+&#x20;   }
+&#x20;   .button-secondary {
+&#x20;     color: #f2e8ed;
+&#x20;     border-color: rgba(255,255,255,.13);
+&#x20;     background: rgba(255,255,255,.035);
+&#x20;   }
+&#x20;   .button-secondary:hover { border-color: rgba(255,255,255,.28); }
+&#x20;   .hero-lines {
+&#x20;     position: absolute;
+&#x20;     left: 0;
+&#x20;     right: 0;
+&#x20;     bottom: 0;
+&#x20;     height: 100px;
+&#x20;     overflow: hidden;
+&#x20;     opacity: .7;
+&#x20;     pointer-events: none;
+&#x20;   }
+&#x20;   .hero-lines::before {
+&#x20;     content: "";
+&#x20;     position: absolute;
+&#x20;     left: -10%;
+&#x20;     top: 70px;
+&#x20;     width: 120%;
+&#x20;     height: 2px;
+&#x20;     background: linear-gradient(90deg, transparent, rgba(255,51,79,.8), transparent);
+&#x20;     transform: rotate(-2deg);
+&#x20;     box-shadow: 0 -14px 0 rgba(255,51,79,.10), 0 14px 0 rgba(255,51,79,.10);
+&#x20;   }
+&#x20;   .section {
+&#x20;     width: min(1080px, calc(100% - 40px));
+&#x20;     margin: 0 auto;
+&#x20;     padding: 100px 0;
+&#x20;   }
+&#x20;   .section-heading { margin-bottom: 35px; }
+&#x20;   .section-kicker {
+&#x20;     color: #ff6b81;
+&#x20;     font-size: 11px;
+&#x20;     font-weight: 900;
+&#x20;     letter-spacing: .2em;
+&#x20;     text-transform: uppercase;
+&#x20;   }
+&#x20;   h2 {
+&#x20;     margin: 11px 0 0;
+&#x20;     font-size: clamp(30px, 5vw, 47px);
+&#x20;     line-height: 1.1;
+&#x20;     letter-spacing: -.045em;
+&#x20;   }
+&#x20;   .section-description {
+&#x20;     max-width: 610px;
+&#x20;     margin: 14px 0 0;
+&#x20;     color: var(--muted);
+&#x20;     line-height: 1.75;
+&#x20;     font-size: 15px;
+&#x20;   }
+&#x20;   .info-panel {
+&#x20;     position: relative;
+&#x20;     overflow: hidden;
+&#x20;     min-height: 170px;
+&#x20;     display: flex;
+&#x20;     align-items: center;
+&#x20;     gap: 22px;
+&#x20;     padding: 30px;
+&#x20;     border: 1px solid var(--line);
+&#x20;     border-radius: 20px;
+&#x20;     background: linear-gradient(120deg, rgba(38,23,31,.82), rgba(18,13,17,.82));
+&#x20;     box-shadow: 0 20px 70px rgba(0,0,0,.12);
+&#x20;   }
+&#x20;   .info-panel::after {
+&#x20;     content: "";
+&#x20;     position: absolute;
+&#x20;     right: -55px;
+&#x20;     top: -95px;
+&#x20;     width: 220px;
+&#x20;     height: 220px;
+&#x20;     border: 1px solid rgba(255,61,87,.14);
+&#x20;     border-radius: 50%;
+&#x20;     box-shadow: 0 0 0 25px rgba(255,61,87,.025), 0 0 0 50px rgba(255,61,87,.02);
+&#x20;   }
+&#x20;   .info-icon {
+&#x20;     flex: 0 0 54px;
+&#x20;     height: 54px;
+&#x20;     display: grid;
+&#x20;     place-items: center;
+&#x20;     border-radius: 15px;
+&#x20;     color: #ff6f84;
+&#x20;     background: rgba(255,51,79,.11);
+&#x20;     font-size: 24px;
+&#x20;   }
+&#x20;   .info-panel h3 {
+&#x20;     margin: 0 0 10px;
+&#x20;     font-size: clamp(19px, 2.6vw, 25px);
+&#x20;     letter-spacing: -.025em;
+&#x20;   }
+&#x20;   .info-panel h4 {
+&#x20;     margin: 0 0 15px;
+&#x20;     color: #ff8294;
+&#x20;     font-size: clamp(15px, 2vw, 18px);
+&#x20;     line-height: 1.5;
+&#x20;   }
+&#x20;   .info-panel p {
+&#x20;     margin: 0;
+&#x20;     max-width: 780px;
+&#x20;     color: var(--muted);
+&#x20;     font-size: 14px;
+&#x20;     line-height: 1.85;
+&#x20;   }
+&#x20;   .info-panel .studio-note {
+&#x20;     display: block;
+&#x20;     margin-top: 18px;
+&#x20;     color: #93828b;
+&#x20;     font-size: 11px;
+&#x20;     font-style: italic;
+&#x20;     letter-spacing: .02em;
+&#x20;   }
+&#x20;   .info-gallery {
+&#x20;     display: grid;
+&#x20;     grid-template-columns: repeat(3, minmax(0, 1fr));
+&#x20;     gap: 20px;
+&#x20;     margin-top: 28px;
+&#x20;   }
+&#x20;   .gallery-card {
+&#x20;     min-width: 0;
+&#x20;     overflow: hidden;
+&#x20;     border: 1px solid rgba(255,255,255,.10);
+&#x20;     border-radius: 17px;
+&#x20;     background: rgba(255,255,255,.025);
+&#x20;     transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+&#x20;   }
+&#x20;   .gallery-card:hover {
+&#x20;     transform: translateY(-5px);
+&#x20;     border-color: rgba(255,75,96,.38);
+&#x20;     box-shadow: 0 16px 38px rgba(0,0,0,.18);
+&#x20;   }
+&#x20;   .gallery-placeholder {
+&#x20;     position: relative;
+&#x20;     display: grid;
+&#x20;     place-items: center;
+&#x20;     min-height: 300px;
+&#x20;     overflow: hidden;
+&#x20;     background:
+&#x20;       radial-gradient(ellipse at 50% 50%, rgba(255,51,79,.12), transparent 67%),
+&#x20;       linear-gradient(135deg, rgba(255,255,255,.035), rgba(255,255,255,.008));
+&#x20;   }
+&#x20;   .gallery-placeholder::before {
+&#x20;     content: "";
+&#x20;     position: absolute;
+&#x20;     width: 145px;
+&#x20;     height: 145px;
+&#x20;     border: 1px solid rgba(255,90,112,.2);
+&#x20;     border-radius: 28px;
+&#x20;     transform: rotate(35deg);
+&#x20;     box-shadow: 0 0 0 16px rgba(255,90,112,.025), 0 0 0 32px rgba(255,90,112,.018);
+&#x20;   }
+&#x20;   .gallery-placeholder img {
+&#x20;     position: absolute;
+&#x20;     inset: 0;
+&#x20;     width: 100%;
+&#x20;     height: 100%;
+&#x20;     object-fit: cover;
+&#x20;     display: block;
+&#x20;   }
+&#x20;   .gallery-placeholder.has-image::before,
+&#x20;   .gallery-placeholder.has-image span {
+&#x20;     display: none;
+&#x20;   }
+&#x20;   .gallery-placeholder span {
+&#x20;     position: relative;
+&#x20;     z-index: 1;
+&#x20;     color: #ff9cab;
+&#x20;     font-size: 15px;
+&#x20;     font-weight: 850;
+&#x20;     letter-spacing: .14em;
+&#x20;     text-transform: uppercase;
+&#x20;   }
+&#x20;   .gallery-card figcaption {
+&#x20;     padding: 12px 15px 14px;
+&#x20;     border-top: 1px solid rgba(255,255,255,.06);
+&#x20;     color: #8f8189;
+&#x20;     font-size: 11px;
+&#x20;     letter-spacing: .08em;
+&#x20;     text-transform: uppercase;
+&#x20;   }
+&#x20;   .prizes-grid {
+&#x20;     display: grid;
+&#x20;     grid-template-columns: repeat(3, 1fr);
+&#x20;     gap: 18px;
+&#x20;   }
+&#x20;   .prize-card {
+&#x20;     \--prize: #53a9ff;
+&#x20;     position: relative;
+&#x20;     min-height: 215px;
+&#x20;     overflow: hidden;
+&#x20;     padding: 26px;
+&#x20;     border: 1px solid color-mix(in srgb, var(--prize) 25%, transparent);
+&#x20;     border-radius: 19px;
+&#x20;     background: linear-gradient(145deg, color-mix(in srgb, var(--prize) 10%, #171116), rgba(17,12,16,.92) 72%);
+&#x20;     transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+&#x20;   }
+&#x20;   .prize-card:hover {
+&#x20;     transform: translateY(-7px);
+&#x20;     border-color: color-mix(in srgb, var(--prize) 60%, transparent);
+&#x20;     box-shadow: 0 18px 46px color-mix(in srgb, var(--prize) 10%, transparent);
+&#x20;   }
+&#x20;   .prize-card::after {
+&#x20;     content: "";
+&#x20;     position: absolute;
+&#x20;     right: -35px;
+&#x20;     bottom: -45px;
+&#x20;     width: 135px;
+&#x20;     height: 135px;
+&#x20;     border: 1px solid color-mix(in srgb, var(--prize) 30%, transparent);
+&#x20;     border-radius: 28px;
+&#x20;     transform: rotate(24deg);
+&#x20;     box-shadow: 0 0 0 17px color-mix(in srgb, var(--prize) 5%, transparent);
+&#x20;   }
+&#x20;   .prize-card.blue { --prize: #53a9ff; }
+&#x20;   .prize-card.yellow { --prize: #ffd34f; }
+&#x20;   .prize-card.red { --prize: #ff4b60; }
+&#x20;   .prize-icon {
+&#x20;     width: 46px;
+&#x20;     height: 46px;
+&#x20;     display: grid;
+&#x20;     place-items: center;
+&#x20;     border: 1px solid color-mix(in srgb, var(--prize) 36%, transparent);
+&#x20;     border-radius: 13px;
+&#x20;     color: var(--prize);
+&#x20;     background: color-mix(in srgb, var(--prize) 12%, transparent);
+&#x20;     font-size: 22px;
+&#x20;   }
+&#x20;   .prize-label {
+&#x20;     display: block;
+&#x20;     margin-top: 25px;
+&#x20;     color: var(--prize);
+&#x20;     font-size: 10px;
+&#x20;     font-weight: 900;
+&#x20;     letter-spacing: .18em;
+&#x20;     text-transform: uppercase;
+&#x20;   }
+&#x20;   .prize-card h3 {
+&#x20;     position: relative;
+&#x20;     z-index: 1;
+&#x20;     margin: 7px 0 0;
+&#x20;     font-size: 22px;
+&#x20;     letter-spacing: -.025em;
+&#x20;   }
+&#x20;   .discord-section { padding-top: 70px; padding-bottom: 120px; }
+&#x20;   .discord-panel {
+&#x20;     position: relative;
+&#x20;     overflow: hidden;
+&#x20;     padding: clamp(30px, 7vw, 70px) 25px;
+&#x20;     text-align: center;
+&#x20;     border: 1px solid rgba(255, 65, 89, .25);
+&#x20;     border-radius: 26px;
+&#x20;     background: radial-gradient(ellipse at 50% 0%, rgba(194, 21, 54, .20), transparent 65%), rgba(22,13,19,.85);
+&#x20;   }
+&#x20;   .discord-panel::before,
+&#x20;   .discord-panel::after {
+&#x20;     content: "";
+&#x20;     position: absolute;
+&#x20;     width: 220px;
+&#x20;     height: 1px;
+&#x20;     background: linear-gradient(90deg, transparent, rgba(255,67,91,.75), transparent);
+&#x20;     top: 29px;
+&#x20;   }
+&#x20;   .discord-panel::before { left: -55px; transform: rotate(35deg); }
+&#x20;   .discord-panel::after { right: -55px; transform: rotate(-35deg); }
+&#x20;   .discord-symbol {
+&#x20;     width: 60px;
+&#x20;     height: 60px;
+&#x20;     display: grid;
+&#x20;     place-items: center;
+&#x20;     margin: 0 auto 20px;
+&#x20;     border: 1px solid rgba(255,255,255,.13);
+&#x20;     border-radius: 19px;
+&#x20;     background: rgba(255,255,255,.055);
+&#x20;     font-size: 29px;
+&#x20;   }
+&#x20;   .discord-panel h2 { margin-top: 0; }
+&#x20;   .discord-panel p {
+&#x20;     max-width: 520px;
+&#x20;     margin: 16px auto 22px;
+&#x20;     color: var(--muted);
+&#x20;     line-height: 1.75;
+&#x20;   }
+&#x20;   .button-compact {
+&#x20;     min-height: 39px;
+&#x20;     padding: 0 15px;
+&#x20;     border-radius: 10px;
+&#x20;     font-size: 12px;
+&#x20;     gap: 8px;
+&#x20;   }
+&#x20;   .social-links {
+&#x20;     display: flex;
+&#x20;     flex-wrap: wrap;
+&#x20;     justify-content: center;
+&#x20;     align-items: center;
+&#x20;     gap: 10px;
+&#x20;     margin-top: 17px;
+&#x20;   }
+&#x20;   .social-link {
+&#x20;     display: inline-flex;
+&#x20;     align-items: center;
+&#x20;     justify-content: center;
+&#x20;     gap: 8px;
+&#x20;     min-height: 38px;
+&#x20;     padding: 0 14px;
+&#x20;     border: 1px solid rgba(255,255,255,.12);
+&#x20;     border-radius: 10px;
+&#x20;     color: #e8dfe4;
+&#x20;     background: rgba(255,255,255,.035);
+&#x20;     font-size: 12px;
+&#x20;     font-weight: 750;
+&#x20;     transition: transform .25s ease, border-color .25s ease, background .25s ease;
+&#x20;   }
+&#x20;   .social-link:hover {
+&#x20;     transform: translateY(-2px);
+&#x20;     border-color: rgba(255,255,255,.28);
+&#x20;     background: rgba(255,255,255,.07);
+&#x20;   }
+&#x20;   .social-link.youtube:hover { border-color: rgba(255,70,70,.45); }
+&#x20;   .social-link.tiktok:hover { border-color: rgba(83,220,229,.45); }
+&#x20;   footer {
+&#x20;     padding: 25px 20px 32px;
+&#x20;     border-top: 1px solid rgba(255,255,255,.07);
+&#x20;     color: #81747c;
+&#x20;     text-align: center;
+&#x20;     font-size: 11px;
+&#x20;     letter-spacing: .04em;
+&#x20;   }
+&#x20;   footer span { color: #d2c3ca; }
+&#x20;   .reveal {
+&#x20;     opacity: 0;
+&#x20;     transform: translateY(25px);
+&#x20;     transition: opacity .7s ease, transform .7s cubic-bezier(.2,.7,.2,1);
+&#x20;   }
+&#x20;   .reveal.visible { opacity: 1; transform: translateY(0); }
+&#x20;   /\* Discord-átirányítási ablak \*/
+&#x20;   .modal-backdrop {
+&#x20;     position: fixed;
+&#x20;     inset: 0;
+&#x20;     z-index: 100;
+&#x20;     display: grid;
+&#x20;     place-items: center;
+&#x20;     padding: 20px;
+&#x20;     background: rgba(4, 3, 5, .78);
+&#x20;     backdrop-filter: blur(12px);
+&#x20;     -webkit-backdrop-filter: blur(12px);
+&#x20;     opacity: 0;
+&#x20;     visibility: hidden;
+&#x20;     transition: opacity .25s ease, visibility .25s ease;
+&#x20;   }
+&#x20;   .modal-backdrop.open { opacity: 1; visibility: visible; }
+&#x20;   .modal {
+&#x20;     width: min(440px, 100%);
+&#x20;     padding: 32px;
+&#x20;     border: 1px solid rgba(255, 67, 91, .32);
+&#x20;     border-radius: 22px;
+&#x20;     text-align: center;
+&#x20;     background: linear-gradient(145deg, #21131b, #100c10 75%);
+&#x20;     box-shadow: 0 28px 100px rgba(0,0,0,.55), 0 0 50px rgba(255,51,79,.08);
+&#x20;     transform: translateY(14px) scale(.98);
+&#x20;     transition: transform .3s cubic-bezier(.2,.7,.2,1);
+&#x20;   }
+&#x20;   .modal-backdrop.open .modal { transform: translateY(0) scale(1); }
+&#x20;   .modal-icon {
+&#x20;     width: 54px;
+&#x20;     height: 54px;
+&#x20;     display: grid;
+&#x20;     place-items: center;
+&#x20;     margin: 0 auto 18px;
+&#x20;     border-radius: 16px;
+&#x20;     color: #ff7186;
+&#x20;     background: rgba(255,51,79,.12);
+&#x20;     font-size: 24px;
+&#x20;   }
+&#x20;   .modal h2 { font-size: 26px; letter-spacing: -.04em; }
+&#x20;   .modal-message {
+&#x20;     margin: 13px 0 22px;
+&#x20;     color: #d5c8ce;
+&#x20;     line-height: 1.65;
+&#x20;     font-size: 14px;
+&#x20;   }
+&#x20;   .countdown-ring {
+&#x20;     position: relative;
+&#x20;     display: grid;
+&#x20;     place-items: center;
+&#x20;     width: 68px;
+&#x20;     height: 68px;
+&#x20;     margin: 0 auto 23px;
+&#x20;     border-radius: 50%;
+&#x20;     background: conic-gradient(var(--red) var(--progress, 0%), rgba(255,255,255,.09) 0);
+&#x20;   }
+&#x20;   .countdown-ring::before {
+&#x20;     content: "";
+&#x20;     position: absolute;
+&#x20;     inset: 5px;
+&#x20;     border-radius: 50%;
+&#x20;     background: #160f14;
+&#x20;   }
+&#x20;   .countdown-number {
+&#x20;     position: relative;
+&#x20;     z-index: 1;
+&#x20;     font-size: 24px;
+&#x20;     font-weight: 900;
+&#x20;     font-variant-numeric: tabular-nums;
+&#x20;   }
+&#x20;   .modal-actions { display: flex; gap: 10px; }
+&#x20;   .modal-actions .button {
+&#x20;     flex: 1;
+&#x20;     min-width: 0;
+&#x20;     padding: 0 12px;
+&#x20;   }
+&#x20;   .modal-note { margin-top: 16px; color: #877780; font-size: 11px; }
+&#x20;   @keyframes heroEnter {
+&#x20;     from { opacity: 0; transform: translateY(22px); }
+&#x20;     to { opacity: 1; transform: translateY(0); }
+&#x20;   }
+&#x20;   @keyframes pulse {
+&#x20;     0%,100% { opacity: .55; transform: translateX(-50%) scale(.95); }
+&#x20;     50% { opacity: 1; transform: translateX(-50%) scale(1.05); }
+&#x20;   }
+&#x20;   @keyframes trackMove {
+&#x20;     from { background-position: 0 0; }
+&#x20;     to { background-position: 180px 280px; }
+&#x20;   }
+&#x20;   @media (max-width: 700px) {
+&#x20;     .nav { width: min(100% - 28px, 1120px); min-height: 64px; }
+&#x20;     .brand { font-size: 11px; letter-spacing: .06em; }
+&#x20;     .brand-mark { width: 30px; height: 30px; }
+&#x20;     .nav-links { gap: 13px; }
+&#x20;     .nav-links a { font-size: 11px; }
+&#x20;     .nav-links a:nth-child(2) { display: none; }
+&#x20;     .nav-cta { padding: 9px 10px; }
+&#x20;     .hero { min-height: 690px; padding: 85px 20px 105px; }
+&#x20;     .section { width: calc(100% - 32px); padding: 75px 0; }
+&#x20;     .prizes-grid { grid-template-columns: 1fr; }
+&#x20;     .prize-card { min-height: 185px; }
+&#x20;     .info-panel { align-items: flex-start; padding: 24px; gap: 15px; }
+&#x20;     .info-icon { flex-basis: 44px; height: 44px; }
+&#x20;     .info-gallery { grid-template-columns: 1fr; gap: 14px; }
+&#x20;     .gallery-placeholder { min-height: 250px; }
+&#x20;     .discord-section { padding-top: 45px; padding-bottom: 80px; }
+&#x20;     .modal { padding: 27px 20px; }
+&#x20;     .modal-actions { flex-direction: column; }
+&#x20;   }
+&#x20;   @media (prefers-reduced-motion: reduce) {
+&#x20;     \*, \*::before, \*::after {
+&#x20;       scroll-behavior: auto !important;
+&#x20;       animation-duration: .01ms !important;
+&#x20;       animation-iteration-count: 1 !important;
+&#x20;       transition-duration: .01ms !important;
+&#x20;     }
+&#x20;     .reveal { opacity: 1; transform: none; }
+&#x20;   }
+&#x20; \</style>
+\</head>
+\<body>
+&#x20; \<header class="topbar">
+&#x20;   \<nav class="nav" aria-label="Fő navigáció">
+&#x20;     \<a class="brand" href="#kezdo" aria-label="Kesyyy Tournamentjei – főoldal">
+&#x20;       \<span class="brand-mark">K\</span>
+&#x20;       \<span>Kesyyy \<span style="color:#ff526a">Tournaments\</span>\</span>
+&#x20;     \</a>
+&#x20;     \<div class="nav-links">
+&#x20;       \<a href="#informacio">Információ\</a>
+&#x20;       \<a href="#nyeremenyek">Nyeremények\</a>
+&#x20;       \<a class="nav-cta" href="#csatlakozas">Csatlakozás ↗\</a>
+&#x20;     \</div>
+&#x20;   \</nav>
+&#x20; \</header>
+&#x20; \<main>
+&#x20;   \<section class="hero" id="kezdo">
+&#x20;     \<div class="hero-inner">
+&#x20;       \<div class="eyebrow">
+&#x20;         \<span class="eyebrow-dot">\</span>
+&#x20;         The competition starts here
+&#x20;       \</div>
+&#x20;       \<h1>Kesyyy \<span>Tournamentjei\</span>\</h1>
+&#x20;       \<p>
+&#x20;         Mutasd meg, mire vagy képes. Készülj fel a versenyre,
+&#x20;         nézd meg a nyereményeket, és csatlakozz a közösséghez Discordon!
+&#x20;       \</p>
+&#x20;       \<div class="hero-actions">
+&#x20;         \<a class="button button-primary" href="#nyeremenyek">
+&#x20;           Nyeremények megtekintése \<span aria-hidden="true">↓\</span>
+&#x20;         \</a>
+&#x20;         \<a class="button button-secondary" href="#informacio">
+&#x20;           További információ
+&#x20;         \</a>
+&#x20;       \</div>
+&#x20;     \</div>
+&#x20;     \<div class="hero-lines" aria-hidden="true">\</div>
+&#x20;   \</section>
+&#x20;   \<section class="section" id="informacio">
+&#x20;     \<div class="section-heading reveal">
+&#x20;       \<div class="section-kicker">01 / Tudnivalók\</div>
+&#x20;       \<h2>Információ\</h2>
+&#x20;       \<p class="section-description">
+&#x20;         Minden fontos tudnivaló a versenyekről egy helyen.
+&#x20;       \</p>
+&#x20;     \</div>
+&#x20;     \<div class="info-panel reveal">
+&#x20;       \<div class="info-icon" aria-hidden="true">🏆\</div>
+&#x20;       \<div>
+&#x20;         \<h3>🏆 Kesyyy tournamentjei\</h3>
+&#x20;         \<h4>Magyarország legnagyobb tournamentjei!\</h4>
+&#x20;         \<p>
+&#x20;           És ha szeretnél találkozni videósokkal, például
+&#x20;           \<strong>Tw1zz, Kesyyy, Deity és Nagok\</strong>, akkor itt megteheted!
+&#x20;           Ugyanis a versenyen magyar top playerek is részt vesznek a videósok mellett!
+&#x20;           Szeretnél képeket csinálni velük, hívásban beszélgetni vagy akár friendet kapni tőlük?
+&#x20;           Megteheted! Csak gyere be és jelentkezz!
+&#x20;         \</p>
+&#x20;         \<small class="studio-note">
+&#x20;           — Készült Kesyyy Stúdiója megbízásából!
+&#x20;         \</small>
+&#x20;       \</div>
+&#x20;     \</div>
+&#x20;     \<!-- Automatikusan betöltődő képek: kep1.png, kep2.png, kep3.png -->
+&#x20;     \<div class="info-gallery reveal" aria-label="Verseny képek">
+&#x20;       \<figure class="gallery-card">
+&#x20;         \<div class="gallery-placeholder">
+&#x20;           \<img
+&#x20;             src="kep1.png"
+&#x20;             alt="1. versenykép"
+&#x20;             onload="this.parentElement.classList.add('has-image')"
+&#x20;             onerror="this.remove()"
+&#x20;           \>
+&#x20;           \<span>Hamarosan\</span>
+&#x20;         \</div>
+&#x20;         \<figcaption>1. kép\</figcaption>
+&#x20;       \</figure>
+&#x20;       \<figure class="gallery-card">
+&#x20;         \<div class="gallery-placeholder">
+&#x20;           \<img
+&#x20;             src="kep2.png"
+&#x20;             alt="2. versenykép"
+&#x20;             onload="this.parentElement.classList.add('has-image')"
+&#x20;             onerror="this.remove()"
+&#x20;           \>
+&#x20;           \<span>Hamarosan\</span>
+&#x20;         \</div>
+&#x20;         \<figcaption>2. kép\</figcaption>
+&#x20;       \</figure>
+&#x20;       \<figure class="gallery-card">
+&#x20;         \<div class="gallery-placeholder">
+&#x20;           \<img
+&#x20;             src="kep3.png"
+&#x20;             alt="3. versenykép"
+&#x20;             onload="this.parentElement.classList.add('has-image')"
+&#x20;             onerror="this.remove()"
+&#x20;           \>
+&#x20;           \<span>Hamarosan\</span>
+&#x20;         \</div>
+&#x20;         \<figcaption>3. kép\</figcaption>
+&#x20;       \</figure>
+&#x20;     \</div>
+&#x20;   \</section>
+&#x20;   \<section class="section" id="nyeremenyek">
+&#x20;     \<div class="section-heading reveal">
+&#x20;       \<div class="section-kicker">02 / Jutalmak\</div>
+&#x20;       \<h2>Nyeremények\</h2>
+&#x20;       \<p class="section-description">
+&#x20;         Három nyereménykategória vár a versenyeken.
+&#x20;       \</p>
+&#x20;     \</div>
+&#x20;     \<div class="prizes-grid">
+&#x20;       \<article class="prize-card blue reveal">
+&#x20;         \<div class="prize-icon" aria-hidden="true">◇\</div>
+&#x20;         \<span class="prize-label">Blue reward\</span>
+&#x20;         \<h3>Skin casek\</h3>
+&#x20;       \</article>
+&#x20;       \<article class="prize-card yellow reveal">
+&#x20;         \<div class="prize-icon" aria-hidden="true">✦\</div>
+&#x20;         \<span class="prize-label">Gold reward\</span>
+&#x20;         \<h3>Key Bundle\</h3>
+&#x20;       \</article>
+&#x20;       \<article class="prize-card red reveal">
+&#x20;         \<div class="prize-icon" aria-hidden="true">⬡\</div>
+&#x20;         \<span class="prize-label">Red reward\</span>
+&#x20;         \<h3>Bundlelek\</h3>
+&#x20;       \</article>
+&#x20;     \</div>
+&#x20;   \</section>
+&#x20;   \<section class="section discord-section" id="csatlakozas">
+&#x20;     \<div class="discord-panel reveal">
+&#x20;       \<div class="discord-symbol" aria-hidden="true">⌁\</div>
+&#x20;       \<div class="section-kicker">03 / Légy részese\</div>
+&#x20;       \<h2>Találkozunk a versenyen?\</h2>
+&#x20;       \<p>
+&#x20;         Csatlakozz a Discord-szerverhez, és a jelentkezéshez nyiss egy ticketet!
+&#x20;       \</p>
+&#x20;       \<button
+&#x20;         class="button button-primary button-compact"
+&#x20;         id="discordButton"
+&#x20;         type="button"
+&#x20;       \>
+&#x20;         Csatlakozás Discordhoz \<span aria-hidden="true">↗\</span>
+&#x20;       \</button>
+&#x20;       \<div class="social-links" aria-label="Kesyyy közösségi csatornái">
+&#x20;         \<a
+&#x20;           class="social-link youtube"
+&#x20;           href="[https://www.youtube.com/@MR.Kesyyy2026](https://www.youtube.com/@MR.Kesyyy2026)"
+&#x20;           target="\_blank"
+&#x20;           rel="noopener noreferrer"
+&#x20;           aria-label="Kesyyy YouTube-csatornája új lapon nyílik meg"
+&#x20;         \>
+&#x20;           ▶ YouTube \<span aria-hidden="true">↗\</span>
+&#x20;         \</a>
+&#x20;         \<a
+&#x20;           class="social-link tiktok"
+&#x20;           href="[https://www.tiktok.com/@xkesyyy28](https://www.tiktok.com/@xkesyyy28)"
+&#x20;           target="\_blank"
+&#x20;           rel="noopener noreferrer"
+&#x20;           aria-label="Kesyyy TikTok-csatornája új lapon nyílik meg"
+&#x20;         \>
+&#x20;           ♪ TikTok \<span aria-hidden="true">↗\</span>
+&#x20;         \</a>
+&#x20;       \</div>
+&#x20;     \</div>
+&#x20;   \</section>
+&#x20; \</main>
+&#x20; \<footer>
+&#x20;   © \<span id="year">\</span>
+&#x20;   \<span>Kesyyy Tournamentjei\</span> · Minden jog fenntartva.
+&#x20; \</footer>
+&#x20; \<div
+&#x20;   class="modal-backdrop"
+&#x20;   id="discordModal"
+&#x20;   role="dialog"
+&#x20;   aria-modal="true"
+&#x20;   aria-labelledby="modalTitle"
+&#x20;   aria-describedby="modalDescription"
+&#x20;   aria-hidden="true"
+&#x20; \>
+&#x20;   \<div class="modal">
+&#x20;     \<div class="modal-icon" aria-hidden="true">ⓘ\</div>
+&#x20;     \<h2 id="modalTitle">Mielőtt továbblépsz…\</h2>
+&#x20;     \<p class="modal-message" id="modalDescription">
+&#x20;       Nyiss egy ticketet a jelentkezéshez!
+&#x20;     \</p>
+&#x20;     \<div
+&#x20;       class="countdown-ring"
+&#x20;       id="countdownRing"
+&#x20;       style="--progress: 0%"
+&#x20;       aria-label="Visszaszámlálás"
+&#x20;     \>
+&#x20;       \<span class="countdown-number" id="countdownNumber" aria-live="polite">10\</span>
+&#x20;     \</div>
+&#x20;     \<div class="modal-actions">
+&#x20;       \<button class="button button-primary" id="skipButton" type="button">
+&#x20;         Átugrás és csatlakozás ↗
+&#x20;       \</button>
+&#x20;       \<button class="button button-secondary" id="cancelButton" type="button">
+&#x20;         Mégsem
+&#x20;       \</button>
+&#x20;     \</div>
+&#x20;     \<div class="modal-note">
+&#x20;       Automatikus továbblépés
+&#x20;       \<span id="secondsText">10\</span> másodperc múlva
+&#x20;     \</div>
+&#x20;   \</div>
+&#x20; \</div>
+&#x20; \<script>
+&#x20;   const DISCORD_URL = '[https://discord.gg/FcRcfCqz9u](https://discord.gg/FcRcfCqz9u)';
+&#x20;   const WAIT_SECONDS = 10;
+&#x20;   const modal = document.getElementById('discordModal');
+&#x20;   const discordButton = document.getElementById('discordButton');
+&#x20;   const skipButton = document.getElementById('skipButton');
+&#x20;   const cancelButton = document.getElementById('cancelButton');
+&#x20;   const countdownNumber = document.getElementById('countdownNumber');
+&#x20;   const secondsText = document.getElementById('secondsText');
+&#x20;   const countdownRing = document.getElementById('countdownRing');
+&#x20;   let countdownTimer = null;
+&#x20;   let secondsLeft = WAIT_SECONDS;
+&#x20;   let previousFocus = null;
+&#x20;   document.getElementById('year').textContent = new Date().getFullYear();
+&#x20;   function updateCountdown() {
+&#x20;     countdownNumber.textContent = secondsLeft;
+&#x20;     secondsText.textContent = secondsLeft;
+&#x20;     const progress = ((WAIT_SECONDS - secondsLeft) / WAIT_SECONDS) \* 100;
+&#x20;     countdownRing.style.setProperty('--progress', \`${progress}%\`);
+&#x20;   }
+&#x20;   function closeModal() {
+&#x20;     if (countdownTimer) {
+&#x20;       clearInterval(countdownTimer);
+&#x20;       countdownTimer = null;
+&#x20;     }
+&#x20;     modal.classList.remove('open');
+&#x20;     modal.setAttribute('aria-hidden', 'true');
+&#x20;     document.body.style.overflow = '';
+&#x20;     if (previousFocus) previousFocus.focus();
+&#x20;   }
+&#x20;   function goToDiscord() {
+&#x20;     if (countdownTimer) {
+&#x20;       clearInterval(countdownTimer);
+&#x20;       countdownTimer = null;
+&#x20;     }
+&#x20;     window\.location.href = DISCORD_URL;
+&#x20;   }
+&#x20;   function openModal() {
+&#x20;     previousFocus = document.activeElement;
+&#x20;     secondsLeft = WAIT_SECONDS;
+&#x20;     updateCountdown();
+&#x20;     modal.classList.add('open');
+&#x20;     modal.setAttribute('aria-hidden', 'false');
+&#x20;     document.body.style.overflow = 'hidden';
+&#x20;     skipButton.focus();
+&#x20;     countdownTimer = setInterval(() => {
+&#x20;       secondsLeft -= 1;
+&#x20;       updateCountdown();
+&#x20;       if (secondsLeft <= 0) {
+&#x20;         goToDiscord();
+&#x20;       }
+&#x20;     }, 1000);
+&#x20;   }
+&#x20;   discordButton.addEventListener('click', openModal);
+&#x20;   skipButton.addEventListener('click', goToDiscord);
+&#x20;   cancelButton.addEventListener('click', closeModal);
+&#x20;   modal.addEventListener('click', (event) => {
+&#x20;     if (event.target === modal) {
+&#x20;       closeModal();
+&#x20;     }
+&#x20;   });
+&#x20;   document.addEventListener('keydown', (event) => {
+&#x20;     if (event.key === 'Escape' && modal.classList.contains('open')) {
+&#x20;       closeModal();
+&#x20;     }
+&#x20;   });
+&#x20;   // Belépő animáció, amikor a szekciók a képernyőre érnek.
+&#x20;   const revealItems = document.querySelectorAll('.reveal');
+&#x20;   if ('IntersectionObserver' in window) {
+&#x20;     const observer = new IntersectionObserver((entries, obs) => {
+&#x20;       entries.forEach((entry) => {
+&#x20;         if (entry.isIntersecting) {
+&#x20;           entry.target.classList.add('visible');
+&#x20;           obs.unobserve(entry.target);
+&#x20;         }
+&#x20;       });
+&#x20;     }, { threshold: 0.12 });
+&#x20;     revealItems.forEach((item) => observer.observe(item));
+&#x20;   } else {
+&#x20;     revealItems.forEach((item) => item.classList.add('visible'));
+&#x20;   }
+&#x20; \</script>
+\</body>
+\</html>
